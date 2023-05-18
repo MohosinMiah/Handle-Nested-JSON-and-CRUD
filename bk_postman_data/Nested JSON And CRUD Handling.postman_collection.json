@@ -1,0 +1,175 @@
+{
+	"info": {
+		"_postman_id": "13566f4f-506b-423b-891a-01e4c7d42052",
+		"name": "Nested JSON And CRUD Handling",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "4954358"
+	},
+	"item": [
+		{
+			"name": "Save Nested JSON",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"transactionId\": \"123456789\",\r\n  \"amount\": 149.99,\r\n  \"currency\": \"USD\",\r\n  \"customer\": {\r\n    \"id\": \"987654321\",\r\n    \"name\": \"Jane Smith\",\r\n    \"email\": \"janesmith@example.com\"\r\n  },\r\n  \"paymentMethod\": {\r\n    \"customerid\":\"1\",\r\n    \"type\": \"creditCard\",\r\n    \"cardNumber\": \"1234 5678 9012 3456\",\r\n    \"expirationMonth\": \"05\",\r\n    \"expirationYear\": \"2024\",\r\n    \"cvv\": \"123\",\r\n    \"billindaddressid\":1,\r\n    \"billingAddress\": {\r\n      \"billindaddressid\":1,\r\n      \"street\": \"456 Elm St\",\r\n      \"city\": \"Los Angeles\",\r\n      \"state\": \"CA\",\r\n      \"zip\": \"90001\"\r\n    }\r\n  },\r\n  \"orders\": {\r\n    \"orderid\": \"2\",\r\n    \"customerid\": \"987654321\",\r\n    \"orderdate\": \"12-01-2023\"\r\n  },\r\n  \"orderdetails\": [\r\n    {\r\n  \"orderdetailsid\": \"1\",\r\n  \"orderid\": \"1\",\r\n  \"productid\": \"1\",\r\n  \"price\": 49.99,\r\n  \"quantity\": 2\r\n},\r\n{\r\n  \"orderdetailsid\": \"2\",\r\n  \"orderid\": \"1\",\r\n  \"productid\": \"2\",\r\n  \"price\": 25,\r\n  \"quantity\": 1\r\n},\r\n{\r\n  \"orderdetailsid\": \"3\",\r\n  \"orderid\": \"1\",\r\n  \"productid\": \"3\",\r\n  \"price\": 55,\r\n  \"quantity\": 3\r\n}\r\n\r\n]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/processorder",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"processorder"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Order List",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/order/list",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"order",
+						"list"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Order By ID",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/order/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"order",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Order Update By ID",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"customerid\": \"987654322\",\r\n    \"orderdate\": \"12-01-2024\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/order/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"order",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete Order By ID",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\t\"title\" : \"22222\",\r\n\t\"description\" : \"\",\r\n\t\"content\" : \"Test\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/order/2",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"order",
+						"2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Order Details List By Order ID",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/order/1/orderdetails",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"order",
+						"1",
+						"orderdetails"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
