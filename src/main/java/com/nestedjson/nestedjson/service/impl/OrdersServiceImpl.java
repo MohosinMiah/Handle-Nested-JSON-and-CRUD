@@ -6,7 +6,9 @@ import java.util.Objects;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.nestedjson.nestedjson.entity.OrderDetail;
 import com.nestedjson.nestedjson.entity.Orders;
+import com.nestedjson.nestedjson.repository.OrderDetailRepository;
 import com.nestedjson.nestedjson.repository.OrdersRepository;
 import com.nestedjson.nestedjson.service.OrdersService;
 
@@ -16,6 +18,8 @@ public class OrdersServiceImpl implements OrdersService{
     @Autowired
     OrdersRepository ordersRepository;
 
+    @Autowired
+    OrderDetailRepository orderDetailRepository;
 
     @Override
 	public Orders fetchOrderById(String orderId) {
@@ -53,6 +57,28 @@ public class OrdersServiceImpl implements OrdersService{
             return "Order Update Successfully";
         }
         return "Order ID Not Found";
+    }
+
+
+    @Override
+    public String deleteOrderById(String orderId) {
+        // Delete Order
+        Orders order = ordersRepository.findById(orderId).get();
+
+        // Before Delete Order is exists or not
+        if( order.getOrderid() != "" )
+        {
+            ordersRepository.deleteById(orderId);
+            return "Order ID:  " + orderId + " Deleted Success fully";
+        }
+        return "Order ID: " + orderId + " Not Found";
+    }
+
+
+    @Override
+    public List<OrderDetail> fetchOrderDetailsByOrderId(String orderId) {
+        // Order Detail List By Order ID
+        return orderDetailRepository.findByOrderDetailOrderid(orderId);
     }
 
     

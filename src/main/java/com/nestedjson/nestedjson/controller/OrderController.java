@@ -3,12 +3,14 @@ package com.nestedjson.nestedjson.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.nestedjson.nestedjson.entity.OrderDetail;
 import com.nestedjson.nestedjson.entity.Orders;
 import com.nestedjson.nestedjson.service.OrdersService;
 
@@ -36,5 +38,21 @@ public class OrderController {
     {
         return orderService.updateOrderById(orderId, orders);
     }
+
+    @DeleteMapping("order/{orderId}")
+    public String deleteOrderById(@PathVariable("orderId") String orderId)
+    {
+        return orderService.deleteOrderById(orderId);
+    }
+
+
+    @GetMapping("order/{orderId}/orderdetails")
+    public List<OrderDetail> fetchOrderDetailsByOrderId(@PathVariable("orderId") String orderId )
+    {
+        return orderService.fetchOrderDetailsByOrderId(orderId);
+        
+    }
+
+
 
 }

@@ -40,8 +40,8 @@ public class PaymentServiceImpl implements PaymentService {
 	@Autowired
 	private CustomerRepository customerRepository;
 
-	@Autowired
-	private OrderDetailRepository orderDetailRepository;
+	// @Autowired
+	// private OrderDetailRepository orderDetailRepository;
 
 	@Autowired
 	private OrdersRepository ordersRepository;
@@ -116,19 +116,19 @@ public class PaymentServiceImpl implements PaymentService {
 
 
 		//  Save Order Details Without Iterate as per discussion
-		List<OrderDetailDto> orderDetailDto = baseOrderDto.getOrderdetails();
-		List<OrderDetail> orderDetails = new ArrayList<>();
+		// List<OrderDetailDto> orderDetailDto = baseOrderDto.getOrderdetails();
+		// List<OrderDetail> orderDetails = new ArrayList<>();
 
-		for (OrderDetailDto order : orderDetailDto) {
-			OrderDetail orderDetail = new OrderDetail();
-			orderDetail.setOrderdetailsid(order.getOrderdetailsid());
-			orderDetail.setOrderid(order.getOrderid());
-			orderDetail.setProductid(order.getProductid());
-			orderDetail.setPrice(order.getPrice());
-			orderDetail.setQuantity(order.getQuantity());
-			orderDetails.add(orderDetail);
-		}
-		orderDetailRepository.saveAll(orderDetails);
+		// for (OrderDetailDto order : orderDetailDto) {
+		// 	OrderDetail orderDetail = new OrderDetail();
+		// 	orderDetail.setOrderdetailsid(order.getOrderdetailsid());
+		// 	orderDetail.setOrderid(order.getOrderid());
+		// 	orderDetail.setProductid(order.getProductid());
+		// 	orderDetail.setPrice(order.getPrice());
+		// 	orderDetail.setQuantity(order.getQuantity());
+		// 	orderDetails.add(orderDetail);
+		// }
+		// orderDetailRepository.saveAll(orderDetails);
 
 		return baseOrderDto;
 	}
