@@ -10,6 +10,8 @@ public interface OrdersService {
 
     List<Orders> fetchOrderList();
 
+    public String updateOrderById(String orderId, Orders orders);
+
 
 
 }
