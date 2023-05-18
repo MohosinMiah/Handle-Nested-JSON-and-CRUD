@@ -12,7 +12,7 @@
 <p> 7) Coding best practice interms of method, class and variable naming<p>
 
 ## How to test in Postman
-<p> Please click the link and download postmap API resource and test</p>
+<p> Please click the link and download postmap API resource and test <a href="https://github.com/MohosinMiah/Handle-Nested-JSON-and-CRUD/blob/main/bk_postman_data/Nested%20JSON%20And%20CRUD%20Handling.postman_collection.json"> Postman API Resource </a></p>
 
 <strong> Please create a database and configure it application.properties </strong>
 </hr>
