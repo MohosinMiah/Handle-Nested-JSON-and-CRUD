@@ -19,7 +19,9 @@ import com.nestedjson.nestedjson.repository.OrdersRepository;
 import com.nestedjson.nestedjson.repository.PaymentMethodRepository;
 import com.nestedjson.nestedjson.service.PaymentService;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.modelmapper.ModelMapper;
 
@@ -29,89 +31,107 @@ import jakarta.validation.Valid;
 public class PaymentServiceImpl implements PaymentService {
 
 
-    @Autowired
-    private BaseOrderRepository baseOrderRepository;
+	@Autowired
+	private BaseOrderRepository baseOrderRepository;
 
-    @Autowired
-    private BillingAddressRepository billingAddressRepository;
+	@Autowired
+	private BillingAddressRepository billingAddressRepository;
 
-    @Autowired
-    private CustomerRepository customerRepository;
+	@Autowired
+	private CustomerRepository customerRepository;
 
-    @Autowired
-    private OrderDetailRepository orderDetailRepository;
+	@Autowired
+	private OrderDetailRepository orderDetailRepository;
 
-    @Autowired
-    private OrdersRepository ordersRepository;
+	@Autowired
+	private OrdersRepository ordersRepository;
 
-    @Autowired
-    private PaymentMethodRepository paymentMethodRepository;
+	@Autowired
+	private PaymentMethodRepository paymentMethodRepository;
 
-    @Autowired
-    private ModelMapper mapper;
-
-
-    @Override
-    public BaseOrderDto createOrder(@Valid BaseOrderDto baseOrderDto) {
-        // TODO Auto-generated method stub
-
-        // Save Base Order Date 
-        BaseOrder baseOrder = new BaseOrder();
-        baseOrder.setTransactionId(baseOrderDto.getTransactionId());
-        baseOrder.setAmount(baseOrderDto.getAmount());
-        baseOrder.setCurrency(baseOrderDto.getCurrency());
-        baseOrderRepository.save(baseOrder);
-
-        // Save Customer Data
-        Customer customer = new Customer();
-        customer.setId(baseOrderDto.getCustomer().getId());
-        customer.setName(baseOrderDto.getCustomer().getName());
-        customer.setEmail(baseOrderDto.getCustomer().getEmail());
-        customerRepository.save(customer);
-        customerRepository.save(customer);
-
-        PaymentMethod paymentMethod = new PaymentMethod();
-        paymentMethod.setCustomerid(baseOrderDto.getPaymentMethod().getCustomerid());
-        paymentMethod.setType(baseOrderDto.getPaymentMethod().getType());
-        paymentMethod.setCardNumber(baseOrderDto.getPaymentMethod().getCardNumber());
-        paymentMethod.setExpirationMonth(baseOrderDto.getPaymentMethod().getExpirationMonth());
-        paymentMethod.setExpirationYear(baseOrderDto.getPaymentMethod().getExpirationYear());
-        paymentMethod.setCvv(baseOrderDto.getPaymentMethod().getCvv());
-        paymentMethod.setBillindaddressid(baseOrderDto.getPaymentMethod().getBillindaddressid());
-        paymentMethodRepository.save(paymentMethod);
-
-        BillingAddress billingAddress = new BillingAddress();
-        billingAddress.setBillindaddressid(baseOrderDto.getPaymentMethod().getBillingAddress().getBillindaddressid());
-        billingAddress.setStreet(baseOrderDto.getPaymentMethod().getBillingAddress().getStreet());
-        billingAddress.setCity(baseOrderDto.getPaymentMethod().getBillingAddress().getCity());
-        billingAddress.setState(baseOrderDto.getPaymentMethod().getBillingAddress().getState());
-        billingAddress.setZip(baseOrderDto.getPaymentMethod().getBillingAddress().getZip());
-        billingAddressRepository.save(billingAddress);
+	@Autowired
+	private ModelMapper mapper;
 
 
-        Orders orders = new Orders();
-        orders.setOrderid(baseOrderDto.getOrders().getOrderid());
-        orders.setCustomerid(baseOrderDto.getOrders().getCustomerid());
-        orders.setOrderdate(baseOrderDto.getOrders().getOrderdate());
-        ordersRepository.save(orders);
+	@Override
+	public BaseOrderDto createOrder(@Valid BaseOrderDto baseOrderDto) {
+		// TODO Auto-generated method stub
+
+		// Save Base Order Date 
+		BaseOrder baseOrder = new BaseOrder();
+		baseOrder.setTransactionId(baseOrderDto.getTransactionId());
+		baseOrder.setAmount(baseOrderDto.getAmount());
+		baseOrder.setCurrency(baseOrderDto.getCurrency());
+		baseOrderRepository.save(baseOrder);
+
+		// Save Customer Data
+		Customer customer = new Customer();
+		customer.setId(baseOrderDto.getCustomer().getId());
+		customer.setName(baseOrderDto.getCustomer().getName());
+		customer.setEmail(baseOrderDto.getCustomer().getEmail());
+		customerRepository.save(customer);
+		customerRepository.save(customer);
+
+		// Save Payment Method
+		PaymentMethod paymentMethod = new PaymentMethod();
+		paymentMethod.setCustomerid(baseOrderDto.getPaymentMethod().getCustomerid());
+		paymentMethod.setType(baseOrderDto.getPaymentMethod().getType());
+		paymentMethod.setCardNumber(baseOrderDto.getPaymentMethod().getCardNumber());
+		paymentMethod.setExpirationMonth(baseOrderDto.getPaymentMethod().getExpirationMonth());
+		paymentMethod.setExpirationYear(baseOrderDto.getPaymentMethod().getExpirationYear());
+		paymentMethod.setCvv(baseOrderDto.getPaymentMethod().getCvv());
+		paymentMethod.setBillindaddressid(baseOrderDto.getPaymentMethod().getBillindaddressid());
+		paymentMethodRepository.save(paymentMethod);
+
+		// Save Billing Address
+		BillingAddress billingAddress = new BillingAddress();
+		billingAddress.setBillindaddressid(baseOrderDto.getPaymentMethod().getBillingAddress().getBillindaddressid());
+		billingAddress.setStreet(baseOrderDto.getPaymentMethod().getBillingAddress().getStreet());
+		billingAddress.setCity(baseOrderDto.getPaymentMethod().getBillingAddress().getCity());
+		billingAddress.setState(baseOrderDto.getPaymentMethod().getBillingAddress().getState());
+		billingAddress.setZip(baseOrderDto.getPaymentMethod().getBillingAddress().getZip());
+		billingAddressRepository.save(billingAddress);
+
+		// Save Orders 
+		Orders orders = new Orders();
+		orders.setOrderid(baseOrderDto.getOrders().getOrderid());
+		orders.setCustomerid(baseOrderDto.getOrders().getCustomerid());
+		orders.setOrderdate(baseOrderDto.getOrders().getOrderdate());
+		ordersRepository.save(orders);
+
+		// Save Order Details using Iterate
+
+		// List<OrderDetailDto> orderDetailDto = baseOrderDto.getOrderdetails();
+		// for (OrderDetailDto order : orderDetailDto) {
+
+		//     OrderDetail orderDetail = new OrderDetail();
+		//     orderDetail.setOrderdetailsid(order.getOrderdetailsid());
+		//     orderDetail.setOrderid(order.getOrderid());
+		//     orderDetail.setProductid(order.getProductid());
+		//     orderDetail.setPrice(order.getPrice());
+		//     orderDetail.setQuantity(order.getQuantity());
+		//     orderDetailRepository.save(orderDetail);
+		// }
 
 
-        List<OrderDetailDto> orderDetailDto = baseOrderDto.getOrderdetails();
 
-        for (OrderDetailDto order : orderDetailDto) {
+		//  Save Order Details Without Iterate as per discussion
+		List<OrderDetailDto> orderDetailDto = baseOrderDto.getOrderdetails();
+		List<OrderDetail> orderDetails = new ArrayList<>();
 
-            OrderDetail orderDetail = new OrderDetail();
-            orderDetail.setOrderdetailsid(order.getOrderdetailsid());
-            orderDetail.setOrderid(order.getOrderid());
-            orderDetail.setProductid(order.getProductid());
-            orderDetail.setPrice(order.getPrice());
-            orderDetail.setQuantity(order.getQuantity());
-            orderDetailRepository.save(orderDetail);
-        }
+		for (OrderDetailDto order : orderDetailDto) {
+			OrderDetail orderDetail = new OrderDetail();
+			orderDetail.setOrderdetailsid(order.getOrderdetailsid());
+			orderDetail.setOrderid(order.getOrderid());
+			orderDetail.setProductid(order.getProductid());
+			orderDetail.setPrice(order.getPrice());
+			orderDetail.setQuantity(order.getQuantity());
+			orderDetails.add(orderDetail);
+		}
+		orderDetailRepository.saveAll(orderDetails);
 
-        System.out.println(baseOrderDto.getCustomer());
-        return baseOrderDto;
-    }
+		return baseOrderDto;
+	}
 
- 
+
 }

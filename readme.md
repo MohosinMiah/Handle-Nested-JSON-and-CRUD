@@ -1,6 +1,7 @@
-<h1>Nested JSON Response Handle and Validation using SPring Boot</h1>
+<h1>Nested JSON Handle, Validation and Validated using Spring Boot</h1>
 
 ## API Request URL: http://localhost:8088/processorder
+
 ## What we can learn from this project
 <p> 1) Project Architecture </p>
 <p> 2) Handle Nested JSON Data </p>
@@ -13,9 +14,10 @@
 ## How to test in Postman
 <p> Please click the link and download postmap API resource and test</p>
 
-<p style="color:red"> Please create a database and configure it application.properties </p>
+<strong> Please create a database and configure it application.properties </strong>
 </hr>
 Happy Coding ...
+
 ## JSON Structure
 <code>
 {

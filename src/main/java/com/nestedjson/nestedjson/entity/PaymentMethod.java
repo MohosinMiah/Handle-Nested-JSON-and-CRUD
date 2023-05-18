@@ -18,7 +18,7 @@ import lombok.NoArgsConstructor;
 public class PaymentMethod {
 
     @Id
-    @GeneratedValue( strategy = GenerationType.UUID )
+    // @GeneratedValue( strategy = GenerationType.UUID )
     @NotEmpty(message = "Payment method customer ID is required")
     private String customerid;
 

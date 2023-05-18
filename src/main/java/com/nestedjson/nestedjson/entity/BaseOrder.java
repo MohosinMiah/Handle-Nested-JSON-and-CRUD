@@ -20,7 +20,7 @@ import lombok.NoArgsConstructor;
 public class BaseOrder {
 
     @Id
-    @GeneratedValue( strategy = GenerationType.UUID )
+    // @GeneratedValue( strategy = Generation )
     @NotEmpty(message = "Transaction ID is requirede")
     private String transactionId;
 

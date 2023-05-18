@@ -17,7 +17,7 @@ import lombok.NoArgsConstructor;
 public class Orders{
 
     @Id
-    @GeneratedValue( strategy = GenerationType.UUID )
+    // @GeneratedValue( strategy = GenerationType.UUID )
     @NotEmpty(message = "Orders ID is required")
     private String orderid;
 

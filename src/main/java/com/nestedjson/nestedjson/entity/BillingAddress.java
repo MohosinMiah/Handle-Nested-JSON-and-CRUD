@@ -16,7 +16,7 @@ import lombok.NoArgsConstructor;
 public class BillingAddress {
 
     @Id
-    @GeneratedValue( strategy = GenerationType.UUID )
+    // @GeneratedValue( strategy = GenerationType.UUID )
     @NotEmpty(message = "Billing Address is required")
     private String billindaddressid;
 

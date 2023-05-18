@@ -11,11 +11,13 @@ import org.springframework.validation.FieldError;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.nestedjson.nestedjson.entity.Orders;
 import com.nestedjson.nestedjson.payload.BaseOrderDto;
 import com.nestedjson.nestedjson.service.PaymentService;
 
@@ -25,17 +27,13 @@ import jakarta.validation.Valid;
 public class PaymentController {
 
     @Autowired
-    private  PaymentService companyService;
+    private  PaymentService paymentService;
 
     @PostMapping("/processorder")
     public ResponseEntity<String> saveCompany(@Valid @RequestBody BaseOrderDto orderRequest) {
-        companyService.createOrder(orderRequest);
+        paymentService.createOrder(orderRequest);
         return ResponseEntity.ok("Order Request saved successfully");
     }
-
-
-
-    
 
     // @ExceptionHandler(MethodArgumentNotValidException.class)
     // public ResponseEntity<String> handleValidationException(MethodArgumentNotValidException e) {

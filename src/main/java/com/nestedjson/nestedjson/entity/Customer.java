@@ -16,7 +16,7 @@ import lombok.NoArgsConstructor;
 public class Customer {
 
     @Id
-    @GeneratedValue( strategy = GenerationType.UUID )
+    // @GeneratedValue( strategy = GenerationType.UUID )
     @NotEmpty(message = "Customer ID is required")
     private String id;
 
