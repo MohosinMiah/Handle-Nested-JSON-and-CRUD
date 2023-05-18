@@ -27,7 +27,7 @@ public class PaymentController {
     @Autowired
     private  PaymentService companyService;
 
-    @PostMapping("/order")
+    @PostMapping("/processorder")
     public ResponseEntity<String> saveCompany(@Valid @RequestBody BaseOrderDto orderRequest) {
         companyService.createOrder(orderRequest);
         return ResponseEntity.ok("Order Request saved successfully");
